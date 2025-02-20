@@ -1,0 +1,141 @@
+---
+title: 'Data Dashboard Theme'
+layout: 'project'
+topic: 'Data Visualization'
+date: '2022-01-01'
+description: 'Create a powerful Gatsby theme for building interactive data visualization dashboards with real-time updates.'
+---
+
+import ProjectHeader from '@/components/ProjectHeader';
+import ProjectContent from '@/components/ProjectContent';
+import ProjectSidebar from '@/components/ProjectSidebar';
+import Checklist from '@/components/Checklist';
+
+<ProjectHeader>
+
+# Data Dashboard Theme
+
+Create a <strong className="text-primary">Gatsby theme</strong> that empowers developers to build <strong className="text-primary-foreground">interactive data visualization dashboards</strong> with real-time capabilities.
+
+</ProjectHeader>
+
+<ProjectContent>
+
+## Brief
+
+Modern applications need powerful data visualization capabilities to help users understand complex information at a glance. However, setting up a dashboard with charts, graphs, and real-time updates requires significant boilerplate code and configuration. Let's create a theme that makes this process seamless.
+
+## Level 1: Foundation
+
+Gatsby themes allow us to package functionality as reusable npm modules. We'll create a theme that provides a foundation for building data dashboards, complete with:
+
+- Pre-configured chart libraries (Recharts)
+- Responsive grid layout system
+- Sample dashboard pages
+- Data fetching utilities
+- WebSocket setup for real-time updates
+
+Your first task is to build a theme that creates a demo dashboard page showcasing various visualization types.
+
+## Level 2: Interactive Features
+
+A great dashboard isn't just about displaying data - it's about interacting with it. Enhance the theme with:
+
+- Filtering capabilities
+- Custom date range selection
+- Data export functionality
+- Interactive tooltips
+- Drill-down views
+- Theme customization options
+
+Add these interactive features in a way that makes them easy to implement in any project using the theme.
+
+## Level 3: Advanced Integration
+
+Take the dashboard theme to the next level by adding:
+
+- Reusable chart components with sensible defaults
+- Data transformation helpers
+- Animation and transition effects
+- Real-time data socket management
+- Dashboard layout persistence
+- Cross-filtering between visualizations
+- Mobile-responsive designs
+
+Create a comprehensive set of components and utilities that make it simple to build sophisticated dashboards while maintaining flexibility for customization.
+
+## Tips for Success
+
+1. Focus on developer experience - make the theme intuitive to use
+2. Provide clear documentation and examples
+3. Include TypeScript definitions for better IDE support
+4. Create sensible defaults while allowing customization
+5. Consider performance optimization techniques
+
+## Example Implementation
+
+```jsx
+// Example of using the theme in a project
+import { DashboardLayout, LineChart, DataGrid } from 'gatsby-theme-dataviz'
+
+export default function SalesDashboard() {
+  return (
+    <DashboardLayout>
+      <LineChart 
+        dataSource="sales"
+        title="Monthly Revenue"
+        realtime={true}
+      />
+      <DataGrid
+        dataSource="transactions"
+        pagination={true}
+        exportable={true}
+      />
+    </DashboardLayout>
+  )
+}
+```
+
+
+## To Do
+
+<Checklist items={[
+  {
+    label: 'Set up theme scaffolding',
+  },
+  {
+    label: 'Configure visualization libraries',
+  },
+  {
+    label: 'Create demo dashboard',
+  },
+  {
+    label: 'Add interactive features',
+  },
+  {
+    label: 'Implement real-time updates',
+  },
+  {
+    label: 'Build reusable components',
+  },
+  {
+    label: 'Write documentation',
+  }
+]} />
+
+## Toolbox
+- Gatsby Themes
+- Recharts
+- WebSocket
+- TypeScript
+- Tailwind CSS
+
+## Resources
+- [Gatsby Theme Documentation](https://www.gatsbyjs.com/docs/themes)
+- [Recharts Examples](https://recharts.org/en-US/examples)
+- [Real-time Data Patterns](https://bit.ly/real-time-patterns)
+- [Dashboard Design Guide](https://bit.ly/dashboard-design)
+
+</ProjectContent>
+```
+
