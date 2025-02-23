@@ -2,7 +2,6 @@ import { FaTwitter, FaGithub, FaYoutube } from 'react-icons/fa';
 
 import Section from '@/components/Section';
 import Container from '@/components/Container';
-import LogoSpaceJelly from '@/components/LogoSpaceJelly';
 
 const Footer = () => {
   const authorName = 'Colby Fayock';
@@ -39,9 +38,6 @@ const Footer = () => {
               </ul>
             </div>
             <a href="https://spacejelly.dev">
-              <LogoSpaceJelly
-                className="h-6 w-auto"
-              />
             </a>
           </div>
         </Container>
