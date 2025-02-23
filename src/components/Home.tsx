@@ -195,7 +195,7 @@ const Index: React.FC = () => {
           </div>
 
           {/* Contact Section */}
-          <div className="py-16">
+          <div className="py-16" id='contact'>
             <h2 className="text-3xl font-bold text-white mb-8" data-aos="fade-up">Contact Me</h2>
             
             <div className="max-w-2xl mx-auto" data-aos="fade-up">
