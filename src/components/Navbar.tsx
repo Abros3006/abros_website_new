@@ -1,10 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { 
-  SiGithub,
-  SiLichess,
-} from '@icons-pack/react-simple-icons';
+import { SiGithub, SiLichess } from '@icons-pack/react-simple-icons';
+import { Menu, X } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -14,7 +13,15 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
-// LinkedIn SVG Component
+
+interface ListItemProps {
+  className?: string;
+  title: string;
+  children: React.ReactNode;
+  href: string;
+}
+
+// LinkedIn SVG Component remains the same
 const LinkedInIcon = () => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -27,13 +34,7 @@ const LinkedInIcon = () => (
   </svg>
 );
 
-interface ListItemProps {
-  className?: string;
-  title: string;
-  children: React.ReactNode;
-  href: string;
-}
-
+// ListItem component remains the same
 const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -58,85 +59,70 @@ const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(({ className
 ListItem.displayName = "ListItem";
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const navigationItems = [
+    { href: "/", label: "Home" },
+    { href: "/blogs", label: "Blogs" },
+    { href: "/experience", label: "Experience and Projects" },
+    { href: "/#contact", label: "Contact" },
+  ];
+
+  const socialLinks = [
+    { href: "https://github.com/Abros3006", Icon: SiGithub },
+    { href: "https://lichess.org/@/abros3006", Icon: SiLichess },
+    { 
+      href: "https://www.linkedin.com/in/atharva-bangle/", 
+      Icon: LinkedInIcon 
+    },
+  ];
+
   return (
     <nav className="top-0 left-0 right-0 z-50 backdrop-blur-xl border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <h2 className="text-3xl font-bold text-accent">Abros3006</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-accent">Abros3006</h2>
           </Link>
 
-          {/* Main Navigation */}
-          <div className="flex-1 flex justify-center">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex flex-1 justify-center">
             <NavigationMenu>
               <NavigationMenuList>
-                <NavigationMenuItem>
-                  <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Home
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href="/blogs" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Blogs
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href="/experience" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Experience and Projects
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                  <Link href="/#contact" legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Contact
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
+                {navigationItems.map((item) => (
+                  <NavigationMenuItem key={item.href}>
+                    <Link href={item.href} legacyBehavior passHref>
+                      <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                        {item.label}
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+                ))}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
 
-          {/* Social Links and Auth Buttons */}
-          <div className="flex items-center space-x-4">
-            {/* Social Icons */}
+          {/* Desktop Social Links and Auth */}
+          <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-center space-x-6">
-              <a
-                href="https://github.com/Abros3006"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
-              >
-                <SiGithub size={20} />
-              </a>
-              <a
-                href="https://lichess.org/@/abros3006"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
-              >
-                <SiLichess size={20} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/atharva-bangle/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
-              >
-                <LinkedInIcon />
-              </a>
+              {socialLinks.map(({ href, Icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
             </div>
 
-            {/* Auth Buttons */}
             <SignedOut>
               <SignInButton mode="modal">
                 <button className={cn(navigationMenuTriggerStyle(), "cursor-pointer")}>
@@ -148,7 +134,61 @@ const Navbar = () => {
               <UserButton />
             </SignedIn>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="py-4 space-y-4">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block px-4 py-2 text-lg hover:bg-accent rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              
+              <div className="flex items-center space-x-6 px-4 py-4 border-t">
+                {socialLinks.map(({ href, Icon }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
+              </div>
+
+              <div className="px-4 py-2 border-t">
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <button className={cn(navigationMenuTriggerStyle(), "w-full justify-center")}>
+                      Sign in
+                    </button>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

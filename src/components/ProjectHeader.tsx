@@ -14,7 +14,7 @@ const ProjectHeader = ({ children, className, ...props }: ProjectHeaderProps) =>
       {...props}
       className={cn(
         // Layout
-        "w-full px-28",
+        "px-4 sm:px-8 md:px-16 lg:px-28 mb-8 md:mb-12",
         "mb-10 md:mb-16",
         
         // Heading styles
