@@ -2,6 +2,7 @@ import { Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import Navbar from '@/components/Navbar';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const sourceSans3 = Source_Sans_3({
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         { children }
       </body>
+      <GoogleAnalytics gaId="G-7L4LT1FBQD" />
     </html>
   </ClerkProvider>
   );
